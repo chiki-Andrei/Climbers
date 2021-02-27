@@ -50,24 +50,30 @@ public class Climber {
 
     private int getNextPoint(int prePrevious, int previous){
         int currentPoint;
-        int twoPastPointsDifference = prePrevious - previous;
-        int max_change = height_difference - abs(twoPastPointsDifference);
+        int max_change = height_difference - abs(prePrevious - previous);
         int a = max(prePrevious, previous) + max_change;
         int b = min(prePrevious, previous) - max_change;
-        if(max(prePrevious, previous)+max_change>max_height){
+
+        if(max(prePrevious, previous) + max_change > max_height){
 
             if(min(prePrevious, previous) - max_change < 0){ // мин точка 0 , макс точка лимит высоты скалолаза
-                currentPoint =1;
+                currentPoint = (int) (Math.random() * max_height); // +
             }
 
             else{ // макс точка лимит высоты скалолаза
-                currentPoint = (int) (b + Math.random()*(max_height - b)); // +
+                currentPoint = (int) (Math.random() * (max_height - b) + b); // +
             }
 
             return currentPoint;
         }
 
-        return 0;
+        if (min(prePrevious, previous) - max_change < 0){
+            currentPoint = 1;
+            return currentPoint;
+        }
+
+        currentPoint = (int) (Math.random() * (a - b) + a); // +
+        return currentPoint;
 
     }
 
