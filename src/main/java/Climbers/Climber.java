@@ -30,21 +30,23 @@ public class Climber {
         if (height_difference < 0){
             height_difference = 0;
         }
+        input.close();
     }
 
     public void createRoute(){
         int[] route = new int[stamina];
 
-        route[0] = (int) (random()* min(height_difference,max_height)); // ST-10   MH-13   HD- 4    /  4 8
+        route[0] = (int) (random()* min(height_difference,max_height)); // ST-10   MH-2   HD- 4    /  2
+        route[1] = (int) (random()* min(route[0]+height_difference,max_height));
         System.out.println(route[0]);
-        for(int i = 1; i < stamina; i++){
+        for(int i = 2; i < stamina; i++){
             route[i] = getNextPoint(i);
             System.out.println(route[i]);
         }
     }
 
     private int getNextPoint(int currentPosition){
-        int twoPointDifference = 0;
+        int twoPastPointsDifference = 0;
 
 
 
@@ -52,5 +54,6 @@ public class Climber {
 
 
     }
+
 
 }
