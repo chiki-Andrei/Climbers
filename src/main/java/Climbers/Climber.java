@@ -9,9 +9,9 @@ public class Climber {
     private int stamina;
     private int max_height;
     private int height_difference;
-    private final Scanner input =  new Scanner(System.in);
 
     public Climber() {
+        Scanner input = new Scanner(System.in);
         System.out.println("Введите выносливость скалолаза (не менее трех):");
         this.stamina = input.nextInt();
         if (stamina < 3){
@@ -21,13 +21,13 @@ public class Climber {
         System.out.println("Введите пиковую высоту скалолаза:");
         this.max_height = input.nextInt();
         if (max_height < 0){
-            max_height = 0;
+            max_height = 1;
         }
 
         System.out.println("Введите максимальный перепад трех ближайших вершин:");
         this.height_difference = input.nextInt();
         if (height_difference < 0){
-            height_difference = 0;
+            height_difference = 1;
         }
         else if (height_difference > max_height) {
             height_difference = max_height;
@@ -39,7 +39,7 @@ public class Climber {
     public void createRoute(){
         int[] route = new int[stamina];
 
-        route[0] = (int) (random() * height_difference); // ST-10   MH-9   HD-7
+        route[0] = (int) (random() * height_difference);
         route[1] = (int) (random() * min(route[0]+height_difference,max_height));
         System.out.println(route[0]);
         for(int i = 2; i < stamina; i++){
@@ -50,13 +50,13 @@ public class Climber {
 
     private int getNextPoint(int prePrevious, int previous){
         int currentPoint;
-        int max_change = height_difference - abs(prePrevious - previous);
-        int a = max(prePrevious, previous) + max_change;
-        int b = min(prePrevious, previous) - max_change;
+        int max_change = height_difference - abs(prePrevious - previous); // 7
+        int a = max(prePrevious, previous) + max_change; // 13
+        int b = min(prePrevious, previous) - max_change; // 0
 
-        if(max(prePrevious, previous) + max_change > max_height){
+        if(a > max_height){
 
-            if(min(prePrevious, previous) - max_change < 0){ // мин точка 0 , макс точка лимит высоты скалолаза
+            if(b < 0){ // мин точка 0 , макс точка лимит высоты скалолаза
                 currentPoint = (int) (Math.random() * max_height); // +
             }
 
@@ -67,12 +67,12 @@ public class Climber {
             return currentPoint;
         }
 
-        if (min(prePrevious, previous) - max_change < 0){
-            currentPoint = 1;
+        if (b < 0){
+            currentPoint = (int) (Math.random() * a); // +
             return currentPoint;
         }
 
-        currentPoint = (int) (Math.random() * (a - b) + a); // +
+        currentPoint = (int) (Math.random() * (a - b) + b); // +
         return currentPoint;
 
     }
