@@ -39,12 +39,12 @@ public class Climber {
     public void createRoute(){
         int[] route = new int[stamina];
 
-        route[0] = (int) (random() * height_difference);
-        route[1] = (int) (random() * min(route[0]+height_difference,max_height));
+        route[0] = (int) Math.round(random() * height_difference);
+        route[1] = (int) Math.round(random() * min(route[0]+height_difference,max_height));
         System.out.println(route[0]);
         for(int i = 2; i < stamina; i++){
             route[i] = getNextPoint(route[i-2], route[i-1]);
-            System.out.println(route[i]);
+            System.out.print(route[i]);
         }
     }
 
@@ -57,22 +57,22 @@ public class Climber {
         if(a > max_height){
 
             if(b < 0){ // мин точка 0 , макс точка лимит высоты скалолаза
-                currentPoint = (int) (Math.random() * max_height); // +
+                currentPoint = (int) Math.round(Math.random() * max_height); // +
             }
 
             else{ // макс точка лимит высоты скалолаза
-                currentPoint = (int) (Math.random() * (max_height - b) + b); // +
+                currentPoint = (int) Math.round(Math.random() * (max_height - b) + b); // +
             }
 
             return currentPoint;
         }
 
         if (b < 0){
-            currentPoint = (int) (Math.random() * a); // +
+            currentPoint = (int) Math.round(Math.random() * a); // +
             return currentPoint;
         }
 
-        currentPoint = (int) (Math.random() * (a - b) + b); // +
+        currentPoint = (int) Math.round(Math.random() * (a - b) + b); // +
         return currentPoint;
 
     }
