@@ -35,13 +35,13 @@ public class Climber {
         input.close();
     }
 
-    public void createRoute(){
+    public void CreateRoute(){
         int[] route = new int[stamina];
         route[0] = (int) Math.round(random() * height_difference);
         route[1] = (int) Math.round(random() * min(route[0]+height_difference,max_height));
 
         for(int i = 2; i < stamina; i++){
-            route[i] = getNextPoint(route[i-2], route[i-1]);
+            route[i] = GetNextPoint(route[i-2], route[i-1]);
         }
 
         // вывод горы
@@ -84,7 +84,7 @@ public class Climber {
         }
     }
 
-    private int getNextPoint(int prePrevious, int previous){
+    private int GetNextPoint(int prePrevious, int previous){
         int currentPoint;
         int max_change = height_difference - abs(prePrevious - previous);
         int a = max(prePrevious, previous) + max_change;
